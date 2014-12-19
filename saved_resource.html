@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://fiddle.jshell.net/aybalasubramanian/Td579/show/light/ -->
+<html><script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>Packery - show order after dragging - jsFiddle demo by aybalasubramanian</title>
+  
+  <script type="text/javascript" src="dummy.js"></script><style type="text/css"></style>
+  
+  
+  
+  
+  <link rel="stylesheet" type="text/css" href="result-light.css">
+  
+    
+      <script type="text/javascript" src="draggabilly.pkgd.js"></script>
+    
+  
+    
+      <script type="text/javascript" src="packery.pkgd.js"></script>
+    
+  
+  <style type="text/css">
+    * {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.packery .item {
+  width:  40px;
+  height: 40px;
+  float: left;
+  background: #C09;
+  border: 4px solid #333;
+  border-color: hsla(0, 0%, 0%, 0.3);
+  margin: 0;
+}
+
+.packery .item.w2 { width:   80px; background: #9C0; }
+.packery .item.h2 { height:  80px; background: #0C9; }
+.packery .item.h4 { height: 160px; background: #C90; }
+.packery .item.w4 { width:  160px; background: #90C; }
+
+.packery .item.is-positioning-post-drag,
+.packery .item.is-dragging {
+  background: #09F;
+  z-index: 2;
+  border-color: yellow;
+}
+
+
+  </style>
+  
+</head>
+<body>
+  <div id="container" class="packery" style="position: relative; height: 160px;">
+  <div class="item w4 h2" style="position: absolute; left: 0px; top: 0px;"></div>
+  <div class="item w2 h2" style="position: absolute; left: 160px; top: 0px;"></div>
+  <div class="item w2 h4" style="position: absolute; left: 240px; top: 0px;"></div>
+  <div class="item w2 h2" style="position: absolute; left: 320px; top: 0px;"></div>
+  <div class="item w4 h4" style="position: absolute; left: 400px; top: 0px;"></div>
+  <div class="item w2 h2" style="position: absolute; left: 560px; top: 0px;"></div>
+  <div class="item w2 h4" style="position: absolute; left: 640px; top: 0px;"></div>
+  <div class="item w4 h4" style="position: absolute; left: 720px; top: 0px;"></div>
+  <div class="item w2 h2" style="position: absolute; left: 880px; top: 0px;"></div>
+  <div class="item w2 h2" style="position: absolute; left: 960px; top: 0px;"></div>
+</div>
+
+  
+
+
+<script type="text/javascript">//<![CDATA[ 
+
+docReady( function() {
+  var container = document.querySelector('#container');
+
+  var pckry = new Packery( container, {
+    columnWidth: 80,
+    rowHeight: 80
+  });
+
+  var itemElems = pckry.getItemElements();
+  // make items draggable
+  for ( var i=0, len = itemElems.length; i < len; i++ ) {
+    var elem = itemElems[i];
+    var draggie = new Draggabilly( elem );
+    pckry.bindDraggabillyEvents( draggie );
+  }
+
+  // show item order after layout
+  function orderItems() {
+    var itemElems = pckry.getItemElements();
+    for ( var i=0, len = itemElems.length; i < len; i++ ) {
+      var elem = itemElems[i];
+      elem.textContent = i + 1;
+    }
+  }
+
+  pckry.on( 'layoutComplete', orderItems );
+  pckry.on( 'dragItemPositioned', orderItems );
+
+});
+
+//]]>  
+
+</script>
+
+
+
+
+
+
+
+</body></html>
